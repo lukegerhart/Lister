@@ -47,6 +47,12 @@ public class MainWindow {
 		menu.add(menuItem);
 		
 		menuBar.add(menu);
+		
+		menu = new JMenu("New List");
+		menu.addActionListener(new NewListListener());
+		
+		menuBar.add(menu);
+		
 		frame.setJMenuBar(menuBar);
 		
 		panel = new MainPanel();
