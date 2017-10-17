@@ -8,6 +8,7 @@ public class Lister {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					@SuppressWarnings("unused")
 					MainWindow window = new MainWindow();
 				} catch (Exception e) {
 					e.printStackTrace();

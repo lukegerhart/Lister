@@ -1,18 +1,21 @@
 package lister;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JPanel;
+
+import listeners.*;
 
 public class MainWindow {
 
 	private JFrame frame;
+	private JMenuBar menuBar;
+	private JPanel panel;
 	
-	private int size_x;
-	private int size_y;
+	private final int width = 600;
+	private final int height = 800;
 
 	/**
 	 * Create the application.
@@ -25,12 +28,35 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		size_x = 500;
-		size_y = 500;
 		frame = new JFrame();
-		frame.setBounds(100, 100, size_x, size_y);
+		frame.setBounds(100, 100, width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JMenu menu;
+		JMenuItem menuItem;
+		
+		menuBar = new JMenuBar();
+		menu = new JMenu("File");
+		
+		menuItem = makeMenuItem("Open");
+		menuItem.addActionListener(new OpenListener());
+		menu.add(menuItem);
+		
+		menuItem = makeMenuItem("Save");
+		menuItem.addActionListener(new SaveListener());
+		menu.add(menuItem);
+		
+		menuBar.add(menu);
+		frame.setJMenuBar(menuBar);
+		
+		panel = new MainPanel();
+		frame.add(panel);
+		frame.setTitle("Lister");
 		frame.setVisible(true);
+	}
+	
+	private JMenuItem makeMenuItem(String text) {
+		return new JMenuItem(text);
 	}
 
 }
