@@ -1,18 +1,22 @@
 package lister;
 
+import listeners.*;
+
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
-import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.AbstractListModel;
+import javax.swing.BoxLayout;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
-import listeners.*;
+@SuppressWarnings("serial")
+public class MainWindow extends JFrame{
 
-public class MainWindow {
-
-	private JFrame frame;
-	private JMenuBar menuBar;
-	private JPanel panel;
+	//private JFrame frame;
 	
 	private final int width = 600;
 	private final int height = 800;
@@ -28,21 +32,23 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, width, height);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		this.setBounds(100, 100, width, height);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		/*-----Menu----*/
+		JMenuBar menuBar;
 		JMenu menu;
 		JMenuItem menuItem;
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		
-		menuItem = makeMenuItem("Open");
+		menuItem = new JMenuItem("Open");
 		menuItem.addActionListener(new OpenListener());
 		menu.add(menuItem);
 		
-		menuItem = makeMenuItem("Save");
+		menuItem = new JMenuItem("Save");
 		menuItem.addActionListener(new SaveListener());
 		menu.add(menuItem);
 		
@@ -52,17 +58,15 @@ public class MainWindow {
 		menu.addActionListener(new NewListListener());
 		
 		menuBar.add(menu);
+		/*---End Menu----*/
 		
-		frame.setJMenuBar(menuBar);
+		this.setJMenuBar(menuBar);
+		this.setTitle("Lister");
+		MainPanel mainPanel = new MainPanel();
 		
-		panel = new MainPanel();
-		frame.add(panel);
-		frame.setTitle("Lister");
-		frame.setVisible(true);
-	}
-	
-	private JMenuItem makeMenuItem(String text) {
-		return new JMenuItem(text);
+		this.add(mainPanel);
+		
+		this.setVisible(true);
 	}
 
 }
